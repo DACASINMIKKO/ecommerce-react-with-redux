@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import "./styles.css";
+import { Link } from "react-router-dom";
+import HomePage from "../../views/home/HomePage";
 
 const Navbar = ({ user, searchQuery }) => {
   return (
     <nav className="navbar">
-      <div className="navbar-shopname">MyShop</div>
+      <Link to={"/"} className="navbar-shopname">
+        MyShop
+      </Link>
       <form className="navbar-searchform">
         <input
           type="text"
@@ -26,10 +29,10 @@ const Navbar = ({ user, searchQuery }) => {
             Log In
           </a>
         )}
-        <a href="/cart" className="navbar-cartlink">
-          <i className="fa fa-shopping-cart"></i>
+        <Link to="/cart" className="navbar-cartlink">
           Cart ({user.cart.length})
-        </a>
+        </Link>
+        <div>{user.cartTotal.toFixed(2)}</div>
       </div>
     </nav>
   );

@@ -1,12 +1,20 @@
 import logo from "./logo.svg";
 import "./App.css";
 import HomePage from "./views/home/HomePage";
+import CartPage from "./views/cart/CartPage";
+import CheckOutPage from "./views/checkout/CheckOutPage";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Navbar from "./components/navbar/navbar";
 
 function App() {
   return (
-    <div>
-      <HomePage></HomePage>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={HomePage} />
+        <Route path="/cart" Component={CartPage} />
+        <Route path="/checkout" Component={CheckOutPage} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

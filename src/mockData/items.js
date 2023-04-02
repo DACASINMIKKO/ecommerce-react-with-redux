@@ -1,7 +1,7 @@
 const Items = [
   {
     name: "T-shirt",
-    price: 19.99,
+    price: 20,
   },
   {
     name: "Jeans",

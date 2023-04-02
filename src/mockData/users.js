@@ -7,6 +7,7 @@ const Users = [
     age: 35,
     balance: 1000,
     cart: [],
+    cartTotal: 0,
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const Users = [
     age: 28,
     balance: 1500,
     cart: [],
+    cartTotal: 0,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const Users = [
     age: 42,
     balance: 500,
     cart: [],
+    cartTotal: 0,
   },
 ];
 

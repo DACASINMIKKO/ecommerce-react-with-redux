@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, addItemToCart } from "../../features/userSlice";
+import {
+  setUser,
+  addItemToCart,
+  getTotalItemInCart,
+} from "../../features/userSlice";
 import "./styles.css";
 import Items from "../../mockData/items";
 import Navbar from "../../components/navbar/navbar";
@@ -20,6 +24,7 @@ const HomePage = () => {
 
   const addToCart = (item) => {
     dispatch(addItemToCart(item));
+    dispatch(getTotalItemInCart(item));
     console.log(user);
   };
 
@@ -41,7 +46,7 @@ const HomePage = () => {
               {/* <img src="product-image.jpg" alt="Product Image" /> */}
               <div class="card-content">
                 <h2>{item.name}</h2>
-                <p class="price">{item.price}</p>
+                <p class="price">{item.price.toFixed(2)}</p>
                 <button onClick={() => addToCart(item)} class="add-to-cart">
                   Add to Cart
                 </button>

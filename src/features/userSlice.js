@@ -9,6 +9,7 @@ const initialState = {
   age: 0,
   balance: 0,
   cart: [],
+  cartTotal: 0,
 };
 
 const userSlice = createSlice({
@@ -29,10 +30,17 @@ const userSlice = createSlice({
     },
     addItemToCart: (state, action) => {
       const item = action.payload;
+
       state.cart.push(item);
+    },
+    getTotalItemInCart: (state, action) => {
+      const item = action.payload;
+      let total = 0;
+      total = item.price;
+      state.cartTotal += total;
     },
   },
 });
 
-export const { setUser, addItemToCart } = userSlice.actions;
+export const { setUser, addItemToCart, getTotalItemInCart } = userSlice.actions;
 export default userSlice.reducer;
