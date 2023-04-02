@@ -1,4 +1,4 @@
-const items = [
+const Items = [
   {
     name: "T-shirt",
     price: 19.99,
@@ -80,3 +80,5 @@ const items = [
     price: 89.99,
   },
 ];
+
+export default Items;
