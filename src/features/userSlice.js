@@ -35,15 +35,15 @@ const userSlice = createSlice({
       );
       if (existingItem) {
         existingItem.quantity += 1;
-        existingItem.price = item.price * existingItem.quantity;
+        existingItem.itemTotal = existingItem.quantity * item.price;
       } else {
-        state.cart.push({ ...item, quantity: 1 });
+        state.cart.push({ ...item, quantity: 1, itemTotal: item.price });
       }
     },
     getTotalItemInCart: (state, action) => {
       let total = 0;
       state.cart.forEach((item) => {
-        total += item.price;
+        total += item.price * item.quantity;
       });
 
       state.cartTotal = total;

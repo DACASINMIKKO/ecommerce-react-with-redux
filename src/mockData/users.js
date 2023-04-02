@@ -29,6 +29,16 @@ const Users = [
     cart: [],
     cartTotal: 0,
   },
+  {
+    id: 4,
+    username: "sasukeuchija",
+    password: "password789",
+    name: "Sasuke Uchija",
+    age: 25,
+    balance: 500,
+    cart: [],
+    cartTotal: 0,
+  },
 ];
 
 export default Users;

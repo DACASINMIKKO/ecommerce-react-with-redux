@@ -32,9 +32,9 @@ const CartPage = () => {
             {cartItem.map((item) => (
               <tr>
                 <td>{item.name}</td>
-                <td>${item.price}</td>
+                <td>${item.price.toFixed(2)}</td>
                 <td>{item.quantity}</td>
-                <td>${item.price}</td>
+                <td>${item.itemTotal.toFixed(2)}</td>
                 <td>
                   <button>Remove</button>
                 </td>
@@ -43,7 +43,8 @@ const CartPage = () => {
           </tbody>
         </table>
         <div class="cart-total">
-          <h3>Cart Total: ${user.cartTotal}</h3>
+          <h3>Cart Total: ${user.cartTotal.toFixed(2)}</h3>
+          <h3>Balance: ${user.balance}</h3>
           <a href="#">Checkout</a>
         </div>
       </div>
