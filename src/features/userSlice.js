@@ -30,14 +30,23 @@ const userSlice = createSlice({
     },
     addItemToCart: (state, action) => {
       const item = action.payload;
-
-      state.cart.push(item);
+      const existingItem = state.cart.find(
+        (cartItem) => cartItem.id === item.id
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
+        existingItem.price = item.price * existingItem.quantity;
+      } else {
+        state.cart.push({ ...item, quantity: 1 });
+      }
     },
     getTotalItemInCart: (state, action) => {
-      const item = action.payload;
       let total = 0;
-      total = item.price;
-      state.cartTotal += total;
+      state.cart.forEach((item) => {
+        total += item.price;
+      });
+
+      state.cartTotal = total;
     },
   },
 });

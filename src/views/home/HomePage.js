@@ -24,7 +24,7 @@ const HomePage = () => {
 
   const addToCart = (item) => {
     dispatch(addItemToCart(item));
-    dispatch(getTotalItemInCart(item));
+    dispatch(getTotalItemInCart());
     console.log(user);
   };
 

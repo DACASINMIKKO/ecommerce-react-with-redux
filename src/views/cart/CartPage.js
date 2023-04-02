@@ -17,7 +17,7 @@ const CartPage = () => {
     <div>
       <Navbar user={user} />
       <div class="cart-container">
-        <h1>My Cart</h1>
+        {user.name === "" ? <h1>My Cart</h1> : <h1>{user.name} Cart</h1>}
         <table>
           <thead>
             <tr>
@@ -33,7 +33,7 @@ const CartPage = () => {
               <tr>
                 <td>{item.name}</td>
                 <td>${item.price}</td>
-                <td>1</td>
+                <td>{item.quantity}</td>
                 <td>${item.price}</td>
                 <td>
                   <button>Remove</button>
