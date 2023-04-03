@@ -15,7 +15,6 @@ const CartPage = () => {
   const user = useSelector((state) => state.user);
   const cartItem = user.cart;
   const [quantity, setQuantity] = useState(0);
-  const [modal, setModal] = useState(false);
   const handleRemove = (id) => {
     const itemIndex = modalItem.findIndex((item) => item.id === id);
     const newItems = [...modalItem];
@@ -64,8 +63,10 @@ const CartPage = () => {
                   <button onClick={() => handleRemove(item.id)}>Remove</button>
                 </td>
                 <Modal
+                  quantity={item.quantity}
                   item={item}
                   isOpen={item.modal}
+                  onChange={(e) => setQuantity(e.target.value)}
                   onRemove={() => {
                     handleRemoveModal(item.id);
                   }}
