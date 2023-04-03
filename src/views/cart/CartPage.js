@@ -18,7 +18,10 @@ const CartPage = () => {
   const handleRemove = (id) => {
     const itemIndex = modalItem.findIndex((item) => item.id === id);
     const newItems = [...modalItem];
-    newItems[itemIndex] = { ...newItems[itemIndex], modal: true };
+    newItems[itemIndex] = {
+      ...newItems[itemIndex],
+      modal: !newItems[itemIndex].modal,
+    };
     setModalItem(newItems);
   };
   const handleRemoveModal = (id) => {
@@ -36,7 +39,18 @@ const CartPage = () => {
     })
   );
 
-  console.log(modalItem);
+  const handleQuantityChange = (e, itemId) => {
+    const newItems = modalItem.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: parseInt(e.target.value) };
+      } else {
+        return item;
+      }
+    });
+    setModalItem(newItems);
+  };
+
+  console.log(user);
   return (
     <div>
       <Navbar user={user} />
@@ -63,10 +77,12 @@ const CartPage = () => {
                   <button onClick={() => handleRemove(item.id)}>Remove</button>
                 </td>
                 <Modal
-                  quantity={item.quantity}
+                  value={item.quantity}
                   item={item}
                   isOpen={item.modal}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => {
+                    handleQuantityChange(e, item.id);
+                  }}
                   onRemove={() => {
                     handleRemoveModal(item.id);
                   }}

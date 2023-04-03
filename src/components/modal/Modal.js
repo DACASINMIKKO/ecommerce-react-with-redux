@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./Modal.module.css";
 import { useState } from "react";
 
-const Modal = ({ isOpen, onRemove, item, onChange, quantity }) => {
-  const [value, setValue] = useState(quantity);
+const Modal = ({ isOpen, onRemove, item, onChange, value }) => {
   return (
     <>
       {isOpen && (
