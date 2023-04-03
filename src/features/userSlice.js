@@ -17,11 +17,14 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action) => {
-      const username = action.payload;
+      const user = action.payload;
       let userLoggedIn = null;
 
       for (let i = 0; i < Users.length; i++) {
-        if (username === Users[i].username) {
+        if (
+          user.username === Users[i].username &&
+          user.password === Users[i].password
+        ) {
           userLoggedIn = Users[i];
         }
       }

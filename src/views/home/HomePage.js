@@ -8,19 +8,12 @@ import {
 import "./styles.css";
 import Items from "../../mockData/items";
 import Navbar from "../../components/navbar/navbar";
+import { useNavigate } from "react-router";
 
 const HomePage = () => {
   const user = useSelector((state) => state.user);
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const handleLogIn = () => {
-    dispatch(setUser(username));
-    setLoggedIn(true);
-    console.log(user);
-  };
 
   const addToCart = (item) => {
     dispatch(addItemToCart(item));
@@ -28,16 +21,16 @@ const HomePage = () => {
     console.log(user);
   };
 
+  useEffect(() => {
+    if (user.name === "" || user.username === "") {
+      navigate("/login");
+      return;
+    }
+  }, [user]);
+
   return (
     <div>
       <Navbar user={user}></Navbar>
-      <input
-        onChange={(e) => {
-          setUsername(e.target.value);
-        }}
-        placeholder="Enter username..."
-      />
-      <button onClick={handleLogIn}>Log in</button>
 
       <div class="cardsContainer">
         {Items.map((item) => (

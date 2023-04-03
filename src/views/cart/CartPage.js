@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,10 +9,16 @@ import {
 
 import Items from "../../mockData/items";
 import Navbar from "../../components/navbar/navbar";
+import Modal from "../../components/modal/Modal";
 
 const CartPage = () => {
   const user = useSelector((state) => state.user);
   const cartItem = user.cart;
+  const [quantity, setQuantity] = useState(0);
+  const [modal, setModal] = useState(false);
+  const handleRemove = () => {
+    setModal(true);
+  };
   return (
     <div>
       <Navbar user={user} />
@@ -36,8 +42,15 @@ const CartPage = () => {
                 <td>{item.quantity}</td>
                 <td>${item.itemTotal.toFixed(2)}</td>
                 <td>
-                  <button>Remove</button>
+                  <button onClick={handleRemove}>Remove</button>
                 </td>
+                <Modal
+                  item={item}
+                  isOpen={modal}
+                  onRemove={() => {
+                    setModal(!modal);
+                  }}
+                />
               </tr>
             ))}
           </tbody>
