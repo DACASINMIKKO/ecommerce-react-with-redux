@@ -16,9 +16,28 @@ const CartPage = () => {
   const cartItem = user.cart;
   const [quantity, setQuantity] = useState(0);
   const [modal, setModal] = useState(false);
-  const handleRemove = () => {
-    setModal(true);
+  const handleRemove = (id) => {
+    const itemIndex = modalItem.findIndex((item) => item.id === id);
+    const newItems = [...modalItem];
+    newItems[itemIndex] = { ...newItems[itemIndex], modal: true };
+    setModalItem(newItems);
   };
+  const handleRemoveModal = (id) => {
+    const itemIndex = modalItem.findIndex((item) => item.id === id);
+    const newItems = [...modalItem];
+    newItems[itemIndex] = { ...newItems[itemIndex], modal: false };
+    setModalItem(newItems);
+  };
+
+  //const modalCartItem = cartItem.foreach((item) => [{ ...item, modal: false }]);
+
+  const [modalItem, setModalItem] = useState(
+    cartItem.map((item) => {
+      return { ...item, modal: false };
+    })
+  );
+
+  console.log(modalItem);
   return (
     <div>
       <Navbar user={user} />
@@ -35,20 +54,20 @@ const CartPage = () => {
             </tr>
           </thead>
           <tbody>
-            {cartItem.map((item) => (
+            {modalItem.map((item) => (
               <tr>
                 <td>{item.name}</td>
                 <td>${item.price.toFixed(2)}</td>
                 <td>{item.quantity}</td>
                 <td>${item.itemTotal.toFixed(2)}</td>
                 <td>
-                  <button onClick={handleRemove}>Remove</button>
+                  <button onClick={() => handleRemove(item.id)}>Remove</button>
                 </td>
                 <Modal
                   item={item}
-                  isOpen={modal}
+                  isOpen={item.modal}
                   onRemove={() => {
-                    setModal(!modal);
+                    handleRemoveModal(item.id);
                   }}
                 />
               </tr>
