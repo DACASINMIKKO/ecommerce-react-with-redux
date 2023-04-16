@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setUser,
-  addItemToCart,
-  getTotalItemInCart,
-} from "../../features/userSlice";
 
 import Items from "../../mockData/items";
 import Navbar from "../../components/navbar/navbar";
 import Modal from "../../components/modal/Modal";
+import { removeItem, getTotalItemInCart } from "../../features/userSlice";
 
 const CartPage = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const cartItem = user.cart;
-  const [quantity, setQuantity] = useState(0);
   const handleRemove = (id) => {
     const itemIndex = modalItem.findIndex((item) => item.id === id);
     const newItems = [...modalItem];
@@ -27,17 +23,20 @@ const CartPage = () => {
   const handleRemoveModal = (id) => {
     const itemIndex = modalItem.findIndex((item) => item.id === id);
     const newItems = [...modalItem];
-    newItems[itemIndex] = { ...newItems[itemIndex], modal: false };
+    newItems[itemIndex] = {
+      ...newItems[itemIndex],
+      modal: false,
+      itemTotal: newItems[itemIndex].quantity * newItems[itemIndex].price,
+    };
+
     setModalItem(newItems);
+    dispatch(removeItem(newItems[itemIndex]));
+    dispatch(getTotalItemInCart());
   };
 
   //const modalCartItem = cartItem.foreach((item) => [{ ...item, modal: false }]);
 
-  const [modalItem, setModalItem] = useState(
-    cartItem.map((item) => {
-      return { ...item, modal: false };
-    })
-  );
+  const [modalItem, setModalItem] = useState([]);
 
   const handleQuantityChange = (e, itemId) => {
     const newItems = modalItem.map((item) => {
@@ -51,6 +50,14 @@ const CartPage = () => {
   };
 
   console.log(user);
+
+  useEffect(() => {
+    setModalItem(
+      cartItem.map((item) => {
+        return { ...item, modal: false };
+      })
+    );
+  }, [cartItem]);
   return (
     <div>
       <Navbar user={user} />

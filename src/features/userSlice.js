@@ -51,8 +51,18 @@ const userSlice = createSlice({
 
       state.cartTotal = total;
     },
+    removeItem: (state, action) => {
+      const item = action.payload;
+      const cartIndex = state.cart.findIndex((cart) => item.id === cart.id);
+      state.cart[cartIndex].quantity = item.quantity;
+      state.cart[cartIndex].itemTotal = item.price * item.quantity;
+      if (state.cart[cartIndex].quantity === 0) {
+        state.cart = state.cart.filter((cart) => cart.quantity !== 0);
+      }
+    },
   },
 });
 
-export const { setUser, addItemToCart, getTotalItemInCart } = userSlice.actions;
+export const { setUser, addItemToCart, getTotalItemInCart, removeItem } =
+  userSlice.actions;
 export default userSlice.reducer;
